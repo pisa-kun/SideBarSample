@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="sample.SideBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:sample"
+             mc:Ignorable="d" 
+             Name="SideBar"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!--Side Bar Image-->
+            <!-- BackGroundのOpacityのみ変更 -->
+            <!-- SolidColorBrushのアルファ値でOpacity操作 -->
+            <Style x:Key="SideBarNewButtonStyle" TargetType="{x:Type ToggleButton}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal" Background="#00FFFFFF" x:Name="Panel">
+                                    <Rectangle x:Name="rectangle" Width="10" Fill="White" Visibility="Hidden" HorizontalAlignment="Left" />
+                                    <Image Source="{Binding Path=ImageFileName, ElementName=SideBar}" Width="20" Height="20" Margin="10,0,10,0" HorizontalAlignment="Center" x:Name="StyleImagePath" />
+                                    <TextBlock Text="{Binding Path=ButtonText, ElementName=SideBar}" HorizontalAlignment="Right"  VerticalAlignment="Center" Foreground="White" FontSize="12" x:Name="StyleText" />
+                                </StackPanel>
+                            </Grid>
+
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="true" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Panel" Value="#26FFFFFF"/>
+
+                                </MultiTrigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsPressed" Value="true" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Panel" Value="#4CFFFFFF"/>
+                                </MultiTrigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsChecked" Value="True" />
+                                        <Condition Property="IsMouseOver" Value="False" />
+                                    </MultiTrigger.Conditions>
+                                    <MultiTrigger.Setters>
+                                        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+                                        <Setter Property="Background" TargetName="Panel" Value="#39FFFFFF"/>
+                                    </MultiTrigger.Setters>
+                                </MultiTrigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsChecked" Value="False" />
+                                        <Condition Property="IsMouseOver" Value="False" />
+                                    </MultiTrigger.Conditions>
+                                    <MultiTrigger.Setters>
+                                        <Setter Property="Visibility" TargetName="rectangle" Value="Hidden"/>
+                                        <Setter Property="Background" TargetName="Panel" Value="#00FFFFFF"/>
+                                    </MultiTrigger.Setters>
+                                </MultiTrigger>
+                                
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!--UserControlのNameとElementName を紐づけ-->
+    <ToggleButton x:Name="Sidebar_button" Background="Transparent" BorderThickness="0" Style="{StaticResource SideBarNewButtonStyle}" 
+                  IsChecked="{Binding Path=IsSelected, ElementName=SideBar}" Command="{Binding Path=ButtonCommand, ElementName=SideBar}"/>
+
+</UserControl>
