@@ -28,11 +28,21 @@
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsMouseOver" Value="true" />
+                                        <Condition Property="IsChecked" Value="True" />
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Background" TargetName="Panel" Value="#26FFFFFF"/>
-
+                                    <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
                                 </MultiTrigger>
 
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="true" />
+                                        <Condition Property="IsChecked" Value="false" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Panel" Value="#26FFFFFF"/>
+                                    <Setter Property="Visibility" TargetName="rectangle" Value="Hidden"/>
+                                </MultiTrigger>
+                                
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsPressed" Value="true" />
